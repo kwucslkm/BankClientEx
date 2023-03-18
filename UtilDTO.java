@@ -1,48 +1,20 @@
 package BankClientUp;
 //
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-public class Util {
-	Scanner sc = new Scanner(System.in);
-	public String idDoChk(Map<String, ClientDTO> cmap) {// id 중복 체크 메소드
-		List<String> keys = new ArrayList<>(cmap.keySet());
-		Collections.sort(keys);
-		while (true) {
-			System.out.print(" id  >  ");
-			String id = sc.next();
-			boolean find = false;
-			if (cmap.size() == 0) {
-				System.out.println("perfect id !! you are first member");
-				return id;
-			} else {
-				System.out.println("map size is not 0");
-				for (String c : keys) {
-					if (cmap.get(c).getId().equals(id)) {
-						System.out.println("중복된 아이디 입니다. ");
-						find = true;
-						break;
-					}
-				}
-				if (find) {
-					continue;
-				}
-				System.out.println("최고의 아이디네요~~~!!!!. ");
-				return id;
-			}
-		}
+public class UtilDTO extends Util{
+	private boolean returnChk = true;
+	private String keys;
+	public boolean isReturnChk() {
+		return returnChk;
 	}
-	public int numberCheck() {
-		if (sc.hasNextInt()) {
-			return sc.nextInt();
-		} else {
-			sc.nextLine();
-			return -1;
-		}
+	public void setReturnChk(boolean returnChk) {
+		this.returnChk = returnChk;
 	}
-
+	public String getKeys() {
+		return keys;
+	}
+	public void setKeys(String keys) {
+		this.keys = keys;
+	}
 }
 /*
  * !!!설계 이상한 부분이나 잘못된 부분이나 추가되면 좋을 것 같은 부분이 있다면 알려주세요!!! !!!세부 알고리즘 설계는 알아서 할

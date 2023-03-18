@@ -2,7 +2,6 @@ package BankClientUp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-//import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 public class ClientService {
@@ -15,11 +14,11 @@ public class ClientService {
 	}
 	private Scanner sc = new Scanner(System.in);
 	private ClientRepository repository = ClientRepository.getInstance();
-	Util util = new Util();
 	private String loginId = null;
 	private String loginPassword = null;
+	//
 	public void save() {
-		ClientDTO clientDTO = new ClientDTO();
+		ClientDTO clientDTO = new ClientDTO(); // client 정보set할 객체 생성
 		clientDTO.setId(repository.idDoChk());
 		System.out.print("password> ");
 		clientDTO.setPassword(sc.next());
@@ -49,7 +48,7 @@ public class ClientService {
 	public void findAll() {
 		Map<String, ClientDTO> cmap = repository.findAll();
 		System.out.println("계좌번호\t\t아이디\t비밀번호\t예금주\t잔액\t가입일");
-		System.out.println("-------------------------------------------------------");
+		System.out.println("---------------------------------------------" + "----------");
 		List<String> keys = new ArrayList<>(cmap.keySet());
 		Collections.sort(keys);
 		for (String c : keys) {
@@ -74,7 +73,7 @@ public class ClientService {
 				System.out.println("계좌번호\t\t구분\t거래금액\t거래후잔액\t거래일");
 				List<String> keys = new ArrayList<>(bmap.keySet());
 				Collections.sort(keys);
-				for (String c : keys)  {
+				for (String c : keys) {
 					System.out.println(bmap.get(c));
 				}
 			}
