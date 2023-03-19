@@ -1,12 +1,27 @@
 package BankClientUp;
+
 //
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
 public class Util {
 	Scanner sc = new Scanner(System.in);
+
+	public String passwordDoChk(Map<String, ClientDTO> cmap) {
+		System.out.print(" password  >  ");
+		String password = sc.next();
+		while (true) {
+			System.out.print(" password chk!! > ");
+			String passwordchk = sc.next();
+			if (password.equals(passwordchk)) {
+				return password;
+			}
+		}
+	}
+
 	public String idDoChk(Map<String, ClientDTO> cmap) {// id 중복 체크 메소드
 		List<String> keys = new ArrayList<>(cmap.keySet());
 		Collections.sort(keys);
@@ -15,7 +30,7 @@ public class Util {
 			String id = sc.next();
 			boolean find = false;
 			if (cmap.size() == 0) {
-				System.out.println("perfect id !! you are first member");
+				System.out.println("yor are first member");
 				return id;
 			} else {
 				System.out.println("map size is not 0");
@@ -42,7 +57,6 @@ public class Util {
 			return -1;
 		}
 	}
-
 }
 /*
  * !!!설계 이상한 부분이나 잘못된 부분이나 추가되면 좋을 것 같은 부분이 있다면 알려주세요!!! !!!세부 알고리즘 설계는 알아서 할

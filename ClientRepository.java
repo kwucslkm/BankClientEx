@@ -13,14 +13,17 @@ public class ClientRepository {
 	Map<String, ClientDTO> cmap = new HashMap<>();
 	Map<String, BreakdownDTO> bmap = new HashMap<>();
 	UtilDTO utilDTO = new UtilDTO();
-	
+	public String passwordDoChk() {
+		// TODO Auto-generated method stub
+		return utilDTO.passwordDoChk(cmap);
+	}
 	public String idDoChk() { // id 중복 체크 메소드
 		//
 		return utilDTO.idDoChk(cmap);
 	}
 	public UtilDTO loginDoChk(String id, String password) {
 		if (cmap.size() == 0) {
-			System.out.println("오류");
+			System.out.println("등록된 사용자가 없습니다.");
 		} else {
 			for (String c : cmap.keySet()) {
 				if (cmap.get(c).getId().equals(id) &&
@@ -117,4 +120,5 @@ public class ClientRepository {
 		}
 		return false;
 	}
+	
 }

@@ -1,4 +1,7 @@
 package BankClientUp;
+
+import java.util.Map;
+
 //
 public class UtilDTO extends Util{
 	private boolean returnChk = true;
@@ -15,6 +18,7 @@ public class UtilDTO extends Util{
 	public void setKeys(String keys) {
 		this.keys = keys;
 	}
+	
 }
 /*
  * !!!설계 이상한 부분이나 잘못된 부분이나 추가되면 좋을 것 같은 부분이 있다면 알려주세요!!! !!!세부 알고리즘 설계는 알아서 할

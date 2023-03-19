@@ -13,6 +13,7 @@ public class ClientService {
 		return service;
 	}
 	private Scanner sc = new Scanner(System.in);
+	UtilDTO utilDTO = new UtilDTO();
 	private ClientRepository repository = ClientRepository.getInstance();
 	private String loginId = null;
 	private String loginPassword = null;
@@ -20,10 +21,10 @@ public class ClientService {
 	public void save() {
 		ClientDTO clientDTO = new ClientDTO(); // client 정보set할 객체 생성
 		clientDTO.setId(repository.idDoChk());
-		System.out.print("password> ");
-		clientDTO.setPassword(sc.next());
+		clientDTO.setPassword(repository.passwordDoChk());
 		System.out.print("name> ");
 		clientDTO.setName(sc.next());
+		clientDTO.setPurpose(purpose());// 가입목적
 		if (repository.save(clientDTO)) {
 			System.out.println("회원가입성공");
 		} else {
@@ -45,10 +46,40 @@ public class ClientService {
 			return false;
 		}
 	}
+	public void searchData() {
+		//
+		Map<String, ClientDTO> cmap = repository.findAll();
+		while (true) {
+			System.out.print("== 검색 ==\n 1.이름 2.목적 \n=선택->");
+			int menu = utilDTO.numberCheck();
+			if (menu == 1) {
+				System.out.print("이름입력 > ");
+				String name = sc.next();
+				menuLine();
+				for (String keys : cmap.keySet()) {
+					if (cmap.get(keys).getName().equals(name)) {
+						System.out.println(cmap.get(keys));
+					}
+				}
+				break;
+			} else if (menu == 2) {
+				System.out.println("검색할 목적을 선택해주세요");
+				String purpose = purpose();
+				menuLine();
+				for (String keys : cmap.keySet()) {
+					if (cmap.get(keys).getPurpose().equals(purpose)) {
+						System.out.println(cmap.get(keys));
+					}
+				}
+				break;
+			} else {
+				System.out.println("다시선택");
+			}
+		}
+	}
 	public void findAll() {
 		Map<String, ClientDTO> cmap = repository.findAll();
-		System.out.println("계좌번호\t\t아이디\t비밀번호\t예금주\t잔액\t가입일");
-		System.out.println("---------------------------------------------" + "----------");
+		menuLine();
 		List<String> keys = new ArrayList<>(cmap.keySet());
 		Collections.sort(keys);
 		for (String c : keys) {
@@ -60,8 +91,7 @@ public class ClientService {
 		if (clientDTO == null) {
 			System.out.println("로그인 오류");
 		} else {
-			System.out.println("계좌번호\t\t아이디\t비밀번호\t예금주\t잔액\t가입일");
-			System.out.println("-------------------------------------------------------");
+			menuLine();
 			System.out.println(clientDTO);
 			System.out.println("-------------------------------------------------------");
 			Map<String, BreakdownDTO> bmap = repository.breakList(clientDTO.getAccount());
@@ -161,5 +191,35 @@ public class ClientService {
 		loginId = null;
 		loginPassword = null;
 		System.out.println("로그아웃");
+	}
+	public String purpose() {
+		String pur;
+		while (true) {
+			System.out.println("=가입목적=\n1.예적금 2.투자 3.월급 4.생활비 0.기타\n  선택> ");
+			int menu = utilDTO.numberCheck();
+			if (menu == 1) {
+				pur = "예적금";
+				break;
+			} else if (menu == 2) {
+				pur = "투자";
+				break;
+			} else if (menu == 3) {
+				pur = "월급";
+				break;
+			} else if (menu == 4) {
+				pur = "생활비";
+				break;
+			} else if (menu == 0) {
+				pur = "기타";
+				break;
+			} else {
+				System.out.println("다시 입력");
+			}
+		}
+		return pur;
+	}
+	public void menuLine() {
+		System.out.println("계좌번호\t\t아이디\t비밀번호\t예금주\t잔액\t가입목적\t가입일");
+		System.out.println("-----------------------------------------------------------------------");
 	}
 }

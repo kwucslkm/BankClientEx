@@ -7,23 +7,24 @@ public class ClientDTO {
 	private static int firstNumber = 100;
 	private static int number = 1000;
 	private final static DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yy/MM/dd hh:mm:ss");
-	
+
 	private String account;
 	private String id;
 	private String password;
+	private String purpose;
 	private String name;
+
 	private long balance;
 	private String joinDate;
-	
+
 	public ClientDTO() {
-		if(number+1 == 1011) {
+		if (number + 1 == 1011) {
 			firstNumber++;
 			number = 1000;
 		}
-		this.account = firstNumber+"-"+number++;
+		this.account = firstNumber + "-" + number++;
 		this.joinDate = DTF.format(LocalDateTime.now());
 	}
-	
 	public String getAccount() {
 		return account;
 	}
@@ -54,12 +55,18 @@ public class ClientDTO {
 
 	@Override
 	public String toString() {
-		String str = account+"\t"+id+"\t"+password+"\t"+name+"\t"+
-				balance+"\t"+joinDate;
+		String str = account + "\t" + id + "\t" + password + "\t" 
+					+ name + "\t" + balance + "\t" + purpose + "\t"
+				+ joinDate;
 		return str;
 	}
-	
+
+	public String getPurpose() {
+		return purpose;
+	}
+
+	public void setPurpose(String purpose) {
+		this.purpose = purpose;
+	}
+
 }
-
-
-

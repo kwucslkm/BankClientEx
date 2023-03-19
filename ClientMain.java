@@ -12,7 +12,7 @@ public class ClientMain {
 				System.out.println("1.입출금조회 2.입금 3.출금 4.계좌이체" + 
 									" 5.비밀번호수정 6.회원탈퇴 7.로그아웃 8.계좌추가 0.종료");
 			} else {
-				System.out.println("1.회원가입 2.로그인 3.리스트 0.종료");
+				System.out.println("1.회원가입 2.로그인 3.리스트 4.검색(이름,목적) 0.종료");
 			}
 			System.out.print("선택> ");
 			
@@ -35,8 +35,13 @@ public class ClientMain {
 				} else {
 					service.findAll();
 				}
-			} else if (menu == 4 && loginOk) {
-				service.transfer();
+			} else if (menu == 4) {
+				if (loginOk) {
+					service.transfer();
+				} else {
+					service.searchData();
+				}
+				
 			} else if (menu == 5 && loginOk) {
 				service.update();
 			} else if (menu == 6 && loginOk) {
